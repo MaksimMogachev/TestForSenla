@@ -23,7 +23,7 @@ public class TaskFour {
   }
 
   private Map<String, Integer> createMap(String in) {
-    String[] result = in.split("[ .,:;]+");
+    String[] result = in.split("[ .!?,:;]+");
     int counter = 0;
     Map<String, Integer> textMap = new HashMap<>();
 

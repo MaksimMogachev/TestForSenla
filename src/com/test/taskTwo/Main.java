@@ -1,9 +1,16 @@
 package com.test.taskTwo;
 
-import com.test.taskOne.TaskOne;
 import java.util.Scanner;
 
-public class Main extends TaskOne {
+public class Main {
+
+  /**
+   * Создать программу, которая будет вычислять и выводить на экран
+   * НОК (наименьшее общее кратное) и НОД (наибольший общий
+   * делитель) двух целых чисел, введенных пользователем.
+   * Если пользователь некорректно введёт хотя бы одно из чисел, то
+   * сообщать об ошибке.
+   */
 
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);

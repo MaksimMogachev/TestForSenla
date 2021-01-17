@@ -1,21 +1,20 @@
 package com.test.taskSix;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class Backpack {
 
   private final int carryingCapacity;
   private final int quantity;
+  private List<Thing> bestCombination = null;
+  private int maxPrice;
 
   public Backpack(Scanner in) {
     this.carryingCapacity = setCarryingCapacity(in);
     this.quantity = setQuantity(in);
-  }
-
-  public int getCarryingCapacity() {
-    return carryingCapacity;
   }
 
   public int getQuantity() {
@@ -32,6 +31,11 @@ public class Backpack {
     return in.nextInt();
   }
 
+  public List<Thing> getBestCombination() {
+    return bestCombination;
+  }
+
+
   public Thing createThing(Scanner in) {
     System.out.print("Введите вес вещи: ");
     int w = in.nextInt();
@@ -47,17 +51,28 @@ public class Backpack {
     return new Thing(w, v);
   }
 
-  public ArrayList<Thing> fillTheBackpack(ArrayList<Thing> thingsForBackpack) {
+  private int checkMaxWeight(List<Thing> thingsForBackpack) {
+    int sum = 0;
 
-    for (Iterator<Thing> it = thingsForBackpack.iterator(); it.hasNext(); ) {
-      Thing thing = it.next();
-      if (thing.getWeight() >= this.carryingCapacity) {
-        Thing.setTotalWeight(Thing.getTotalWeight() - thing.getWeight());
-        it.remove();
-      }
+    for (Thing thing : thingsForBackpack) {
+      sum = sum + thing.getWeight();
     }
+    return sum;
+  }
 
-    if (Thing.getTotalWeight() < this.carryingCapacity) {
+  private int checkMaxPrice(List<Thing> thingsForBackpack) {
+    int sum = 0;
+
+    for (Thing thing : thingsForBackpack) {
+      sum = sum + thing.getValue();
+    }
+    return sum;
+  }
+
+  public List<Thing> fillTheBackpack(List<Thing> thingsForBackpack) {
+    thingsForBackpack.removeIf(thing -> thing.getWeight() >= this.carryingCapacity);
+
+    if (checkMaxWeight(thingsForBackpack) < this.carryingCapacity) {
       return thingsForBackpack;
     }
 
@@ -70,10 +85,36 @@ public class Backpack {
         }
       }
 
-      Thing.setTotalWeight(Thing.getTotalWeight() - smallestRatio.getWeight());
       thingsForBackpack.remove(smallestRatio);
 
-    } while (Thing.getTotalWeight() > this.getCarryingCapacity());
+    } while (checkMaxWeight(thingsForBackpack) > carryingCapacity);
     return thingsForBackpack;
+  }
+
+  private void CheckList(List<Thing> things) {
+    if (bestCombination == null) {
+      if (checkMaxWeight(things) <= carryingCapacity) {
+        bestCombination = things;
+        maxPrice = checkMaxPrice(things);
+      }
+    }
+    else {
+      if(checkMaxWeight(things) <= carryingCapacity && checkMaxPrice(things) > maxPrice) {
+        bestCombination = things;
+        maxPrice = checkMaxPrice(things);
+      }
+    }
+  }
+
+  public void MakeCombinations(List<Thing> things) {
+    if (things.size() > 0)
+      CheckList(things);
+
+    for (int i = 0; i < things.size(); i++) {
+      List<Thing> newList = new ArrayList<>(things);
+
+      newList.remove(i);
+      MakeCombinations(newList);
+    }
   }
 }

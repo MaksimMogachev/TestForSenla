@@ -13,18 +13,18 @@ public class TaskOne {
 
   protected int setter(String print, Scanner in) {
     System.out.print(print);
-    int n = 0;
+    int n;
 
     try {
       n = in.nextInt();
     } catch (InputMismatchException e) {
-      System.out.print("Введено не целое число.");
-      setter(print, in);
+      System.out.println("Введено не целое число.");
+      return setter(print, new Scanner(System.in));
     }
 
-    if (n == 0) {
-      System.out.print("Введите другое число.");
-      setter(print, in);
+    if (n < 1) {
+      System.out.println("Введите другое число.");
+      return setter(print, new Scanner(System.in));
     }
     return n;
   }

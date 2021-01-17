@@ -33,13 +33,17 @@ public class TaskTwo extends TaskOne {
         return nod(n2 % n1, n1);
       }
     }
-    System.out.format("Наибольший общий делитель: %s\n", NOD);
     return NOD;
+  }
+
+  private int nok(int nod) {
+    return (this.numberOne * this.numberTwo) / nod;
   }
 
   public void nokAndNod() {
     int NOD = nod(this.numberOne, this.numberTwo);
-    int NOK = (this.numberOne * this.numberTwo) / NOD;
+    int NOK = nok(NOD);
+    System.out.format("Наибольший общий делитель: %s\n", NOD);
     System.out.format("Наименьшее общее кратное: %s\n", NOK);
   }
 }
