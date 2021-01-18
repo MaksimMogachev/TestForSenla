@@ -1,7 +1,6 @@
 package com.test.taskSix;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -69,29 +68,7 @@ public class Backpack {
     return sum;
   }
 
-  public List<Thing> fillTheBackpack(List<Thing> thingsForBackpack) {
-    thingsForBackpack.removeIf(thing -> thing.getWeight() >= this.carryingCapacity);
-
-    if (checkMaxWeight(thingsForBackpack) < this.carryingCapacity) {
-      return thingsForBackpack;
-    }
-
-    do {
-      Thing smallestRatio = thingsForBackpack.get(0);
-
-      for (Thing thing : thingsForBackpack) {
-        if (smallestRatio.getRatio() > thing.getRatio()) {
-          smallestRatio = thing;
-        }
-      }
-
-      thingsForBackpack.remove(smallestRatio);
-
-    } while (checkMaxWeight(thingsForBackpack) > carryingCapacity);
-    return thingsForBackpack;
-  }
-
-  private void CheckList(List<Thing> things) {
+  private void checkList(List<Thing> things) {
     if (bestCombination == null) {
       if (checkMaxWeight(things) <= carryingCapacity) {
         bestCombination = things;
@@ -106,15 +83,15 @@ public class Backpack {
     }
   }
 
-  public void MakeCombinations(List<Thing> things) {
+  public void makeCombinations(List<Thing> things) {
     if (things.size() > 0)
-      CheckList(things);
+      checkList(things);
 
     for (int i = 0; i < things.size(); i++) {
       List<Thing> newList = new ArrayList<>(things);
 
       newList.remove(i);
-      MakeCombinations(newList);
+      makeCombinations(newList);
     }
   }
 }

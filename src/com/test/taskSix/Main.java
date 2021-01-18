@@ -24,10 +24,7 @@ public class Main {
       thingsForBackpack.add(backpack.createThing(in));
     } while (thingsForBackpack.size() != backpack.getQuantity());
 
-//    List<Thing> thingsInBackpack = backpack.fillTheBackpack(thingsForBackpack);
-//    System.out.println(Arrays.toString(thingsInBackpack.toArray()));
-
-    backpack.MakeCombinations(thingsForBackpack);
+    backpack.makeCombinations(thingsForBackpack);
     System.out.println(Arrays.toString(backpack.getBestCombination().toArray()));
   }
 }

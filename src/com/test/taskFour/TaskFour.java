@@ -42,6 +42,10 @@ public class TaskFour {
   }
 
   public void check(String word) {
-    System.out.printf("Слово встречается: %d\n", this.text.get(word));
+    if (this.text.get(word) == null) {
+      System.out.println("Данное слово не встречается в тексте.");
+    } else {
+      System.out.printf("Слово встречается: %d\n", this.text.get(word));
+    }
   }
 }

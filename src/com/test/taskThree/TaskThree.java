@@ -13,7 +13,7 @@ public class TaskThree {
 
   private String[] setter(Scanner in) {
     System.out.print("Введите текст: ");
-    return in.nextLine().split(" ");
+    return in.nextLine().split("[ .!?,:;]+");
   }
 
   public void quantityAndToUpperCase() {

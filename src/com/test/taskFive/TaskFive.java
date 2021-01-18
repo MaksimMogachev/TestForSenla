@@ -10,6 +10,7 @@ public class TaskFive {
   public void setNumber(Scanner in) {
     System.out.print("Введите, до какого числа искать палиндромы: ");
     int n = 0;
+
     try {
       n = in.nextInt();
     } catch (InputMismatchException e) {
